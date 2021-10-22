@@ -66,16 +66,17 @@ class Running(Training):
         """Получить количество затраченных калорий."""
         coeff_calorie_1: int = 18
         coeff_calorie_2: int = 20
-        speed = self.get_mean_speed()
+        mean_speed = self.get_mean_speed()
         weight = self.weight
-        duration = self.duration * 60
+        minute_in_hour = 60
+        duration_in_minutes = self.duration * minute_in_hour
 
-        return ((coeff_calorie_1 * speed - coeff_calorie_2)
+        return ((coeff_calorie_1 * mean_speed - coeff_calorie_2)
                 * weight
                 / self.M_IN_KM
-                * duration)
+                * duration_in_minutes)
 
-    def __str__(self) -> str:
+    def __str__(Sself) -> str:
         """Название класса."""
         return 'Running'
 
@@ -96,11 +97,12 @@ class SportsWalking(Training):
         coeff_calorie_1: float = 0.035
         coeff_calorie_2: float = 0.029
         weight = self.weight
-        speed = self.get_mean_speed()
+        mean_speed = self.get_mean_speed()
         height = self.height
-        duration = self.duration * 60
+        minute_in_hour = 60
+        duration_in_minutes = self.duration * minute_in_hour
 
-        return (coeff_calorie_1 * weight + (speed**2 // height) * coeff_calorie_2 * weight) * duration
+        return (coeff_calorie_1 * weight + (mean_speed**2 // height) * coeff_calorie_2 * weight) * duration_in_minutes
 
     def __str__(self) -> str:
         """Название класса."""
@@ -128,12 +130,12 @@ class Swimming(Training):
 
     def get_spent_calories(self) -> float:
         """Получить количество затраченных калорий."""
-        coeff_1: float = 1.1
-        coeff_2: int = 2
-        speed = self.get_mean_speed()
+        coeff_calorie_1: float = 1.1
+        coeff_calorie_2: int = 2
+        mean_speed = self.get_mean_speed()
         weight = self.weight
 
-        return ((speed + coeff_1) * coeff_2 * weight)
+        return ((mean_speed + coeff_calorie_1) * coeff_calorie_2 * weight)
 
     def __str__(self) -> str:
         """Название класса."""
@@ -147,6 +149,7 @@ def read_package(workout_type: str,
     check_workout = {'SWM': Swimming,
                      'RUN': Running,
                      'WLK': SportsWalking}
+
     return check_workout[workout_type](*data)
 
 
