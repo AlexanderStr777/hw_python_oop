@@ -64,13 +64,16 @@ class Running(Training):
     """Тренировка: бег."""
     def get_spent_calories(self) -> float:
         """Получить количество затраченных калорий."""
-        coeff_1: int = 18
-        coeff_2: int = 20
+        coeff_calorie_1: int = 18
+        coeff_calorie_2: int = 20
         speed = self.get_mean_speed()
         weight = self.weight
         duration = self.duration * 60
 
-        return (coeff_1 * speed - coeff_2) * weight / self.M_IN_KM * duration
+        return ((coeff_calorie_1 * speed - coeff_calorie_2)
+                * weight
+                / self.M_IN_KM
+                * duration)
 
     def __str__(self) -> str:
         """Название класса."""
@@ -90,14 +93,14 @@ class SportsWalking(Training):
 
     def get_spent_calories(self) -> float:
         """Получить количество затраченных калорий."""
-        coeff_1: float = 0.035
-        coeff_2: float = 0.029
+        coeff_calorie_1: float = 0.035
+        coeff_calorie_2: float = 0.029
         weight = self.weight
         speed = self.get_mean_speed()
         height = self.height
         duration = self.duration * 60
 
-        return (coeff_1 * weight + (speed**2 // height) * coeff_2 * weight) * duration
+        return (coeff_calorie_1 * weight + (speed**2 // height) * coeff_calorie_2 * weight) * duration
 
     def __str__(self) -> str:
         """Название класса."""
