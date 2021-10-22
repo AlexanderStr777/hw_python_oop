@@ -141,12 +141,10 @@ def read_package(workout_type: str,
                  data: list
                  ) -> Union[Running, Swimming, SportsWalking]:
     """Прочитать данные полученные от датчиков."""
-    if workout_type == 'RUN':
-        return Running(*data)
-    elif workout_type == 'WLK':
-        return SportsWalking(*data)
-    elif workout_type == 'SWM':
-        return Swimming(*data)
+    check_workout = {'SWM': Swimming,
+                     'RUN': Running,
+                     'WLK': SportsWalking}
+    return check_workout[workout_type](*data)
 
 
 def main(training: Training) -> None:
